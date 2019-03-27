@@ -1,7 +1,5 @@
 library(raster)
-library(rgdal)
-library(rasterVis)
-library(sp)
+
 
 r0 <- raster('b2000_id.tif') # This raster has the id
 r1 <- raster('b2005.tif')
