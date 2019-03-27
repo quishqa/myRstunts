@@ -32,14 +32,22 @@ NewArea <- function(ras){
 # so you'll have to do it year by year
 # PS: Don't worry about the warning, it's 
 # because of using UTM.
+
                  
+# To measure run time
+start_time <- Sys.time()                
+                 
+               
 a00 <- oriArea(r0)
 a05 <- NewArea(r1)
 a17 <- NewArea(r2)
 
+end_time <- Sys.time()
+
+print(start_time -end_time)                 
+                 
 all.areas <- list(a00, a05, a17)
-
-
+                 
 a <- Reduce(function(x, y) merge(x, y, by = 'id', all = T),
             all.areas)
 
