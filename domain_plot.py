@@ -46,10 +46,10 @@ xi, yi = m(lon , lat)
 cs = m.contourf(xi, yi, topo[0, :, :])
 cb = m.colorbar(cs)
 xe, ye = m(est_lon, est_lat)
-m.scatter(xe, ye,marker='o', color='tab:orange')
+m.scatter(xe, ye,marker='o', color='tab:orange', s=30)
 
 for label, xpt, ypt in zip(range(1,4), xe, ye):
-    plt.text(xpt+1000, ypt+1000, label)
+    plt.text(xpt+1000, ypt+1000, label, fontsize=12.5)
 cb.ax.set_xlabel('[meters]')
 plt.show()
 cb.ax.set_xlabel('[meters]')
