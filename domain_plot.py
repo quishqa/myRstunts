@@ -25,10 +25,10 @@ wrfi.close()
 
 lon, lat = np.meshgrid(xlon[0, 0, :], xlat[0, : , 0])
 
-obs_est = pd.DataFrame({'USP':(-23.5663, -46.7374),
-           'Pinheiros':(-23.5614, -46.7020),
-           'Ibirapuera':(-23.5918, -46.6607)})
 
+est_lat = [-23.5663, -23.5614, -23.5918]
+est_lon = [-46.7374, -46.7020, -46.6607]
+est_nam = ['USP', 'Pinehiros', 'Ibirapuera']
 
 # Making the map
 
@@ -44,8 +44,13 @@ m.drawmeridians(np.arange(-180.,180.,0.5),labels=[0,0,0,1],fontsize=10,
                 linewidth=0.01)
 xi, yi = m(lon , lat)
 cs = m.contourf(xi, yi, topo[0, :, :])
-m.readshapefile('./rmsp/MunRM07', 'rmsp', color='white',
-                linewidth=1.5)
 cb = m.colorbar(cs)
+xe, ye = m(est_lon, est_lat)
+m.scatter(xe, ye,marker='o', color='tab:orange')
+
+for label, xpt, ypt in zip(range(1,4), xe, ye):
+    plt.text(xpt+1000, ypt+1000, label)
+cb.ax.set_xlabel('[meters]')
+plt.show()
 cb.ax.set_xlabel('[meters]')
 plt.show()
