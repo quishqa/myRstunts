@@ -95,11 +95,53 @@ streets = list(zip(lon1, lat1))
 pinheiros=(pin_est[1], pin_est[0])
 
 # TODO: Find closest street to the station 
-def dist_btwn_stations(lat1, lon1, lat2, lon2):
+# Get closest street to station 
+
+streets = list(zip(lon1, lat1))
+pinheiros=(pin_est[1], pin_est[0])
+
+def dist_btwn_stations(p1, p2):
     '''This function calculates the distance between two stations given 
     their latitudes and longitudes'''
-    dist = np.sqrt((lat1 - lat2)**2 + (lon1 - lon2)**2)
-    dist = dist * 110
+    dist = np.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
+    dist = dist * 111.2
     return(dist)
 
 
+shortest_distance = 0
+shortest_distance_coordinates = 0
+
+
+for street in streets:
+    distance = dist_btwn_stations(pinheiros, street)
+    if distance < shortest_distance or shortest_distance is 0:
+        shortest_distance = distance
+        shortest_distance_coordinates = street
+
+plt.subplot(111)
+m = Basemap(projection='merc',
+            urcrnrlat=limits[1], urcrnrlon=limits[3], 
+            llcrnrlat=limits[0], llcrnrlon=limits[2])
+m.drawcoastlines()
+m.drawstates()
+m.drawmeridians(lon, labels=[0,0,0,1],fontsize=10,
+                linewidth=1, dashes=(None, None), size=12)
+m.drawparallels(lat, labels=[1,0,0,0],fontsize=10,
+                linewidth=1, dashes=(None, None), size=12)
+#xi, yi = m(lo, la)
+#m.pcolormesh(xi, yi,  t2[0, :,:], edgecolor='Black', linewidth= 0.25,
+#             cmap='Blues', alpha = 0.2)
+xa, ya = m(pin_df.xa.values[85:95], pin_df.ya.values[85:95])
+xb, yb = m(pin_df.xb.values[85:95], pin_df.yb.values[85:95])
+pts = np.c_[xa, ya, xb, yb].reshape(len(xa), 2, 2)
+plt.gca().add_collection(LineCollection(pts, color = 'crimson', label = 'streets'))
+xx, yy = m(pin_est[1], pin_est[0])
+m.plot(xx, yy, marker="o", ls="", label="Pinheiros", color='yellow',
+       markeredgecolor='Black', markersize=10)
+plt.show()
+
+test = pd.DataFrame({'i': pin_df['i'].values,
+                     'coords': streets})
+test['dist'] = [dist_btwn_stations(pinheiros, i) for i in test['coords'].values]
+
+test[test['dist'] == test['dist'].min()]
