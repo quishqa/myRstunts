@@ -1,3 +1,6 @@
+# More information in:
+# https://randroll.wordpress.com/2018/07/31/downloading-data-from-websites-that-require-log-in-user-password-with-rcurl/
+
 library(RCurl)
 library(XML)
 library(stringr)
