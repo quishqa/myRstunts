@@ -81,11 +81,40 @@ CetesbRetrievePol <- function(user.name, pass.word,
   no2 <- CetesbRetrieveCut(user.name, pass.word, 17,
                           est.name, start.date, 
                           end.date)
-  photo_pol <- data.frame(date = o3$date,
-                          o3 = o3$pol,
-                          no = no$pol,
-                          no2 = no2$pol)
-  return(photo_pol)
+  co <- CetesbRetrieveCut(user.name, pass.word, 16,
+                           est.name, start.date, 
+                           end.date)
+  pm10 <- CetesbRetrieveCut(user.name, pass.word, 12,
+                          est.name, start.date, 
+                          end.date)
+  pm25 <- CetesbRetrieveCut(user.name, pass.word, 57,
+                            est.name, start.date, 
+                            end.date)
+  tc <- CetesbRetrieveCut(user.name, pass.word, 25,
+                            est.name, start.date, 
+                            end.date)
+  rh <- CetesbRetrieveCut(user.name, pass.word, 28,
+                          est.name, start.date, 
+                          end.date)
+  wd <- CetesbRetrieveCut(user.name, pass.word, 24,
+                          est.name, start.date, 
+                          end.date)
+  ws <- CetesbRetrieveCut(user.name, pass.word, 21,
+                          est.name, start.date, 
+                          end.date)
+  
+  all_data <- data.frame(date = o3$date,
+                         o3 = o3$pol,
+                         no = no$pol,
+                         no2 = no2$pol,
+                         co = co$pol,
+                         pm10 = pm10$pol,
+                         pm25 = pm25$pol,
+                         tc = tc$pol,
+                         rh = rh$pol,
+                         wd = wd$pol,
+                         ws = ws$pol)
+  return(all_data)
   
 }
 
@@ -95,10 +124,9 @@ CetesbRetrievePol <- function(user.name, pass.word,
 
 user.name <- 'YYYYYYYYY'
 pass.word <- 'XXXXXXXXX'
-pol.name <- 63   # ozone
-est.name <- 99   # pinheiros
-start.date <- '01/11/2013'
-end.date <- '30/11/2013'
+est.name <- 72   # Parque Dom Pedro II
+start.date <- '01/11/2018'
+end.date <- '30/11/2018'
 
 
 
