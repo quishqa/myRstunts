@@ -60,13 +60,8 @@ CetesbRetrieveCut <- function(user.name, pass.word,
     dat$date <- paste(dat$day, dat$hour, sep = '_')
     dat$date <- as.POSIXct(strptime(dat$date, format = '%d/%m/%Y_%H:%M'))
     dat <- merge(all.dates, dat, all = T)
-    if (pol.name == 16 | pol.name == 25 | pol.name == 24){
-      dat$value <- as.numeric(gsub(",", ".", gsub("\\.", "", dat$value)))
-      dat <- data.frame(date = all.dates$date , pol = dat$value)
-    } else {
-      dat$value <- as.double(dat$value)
-      dat <- data.frame(date = all.dates$date , pol = dat$value)
-    }
+    dat$value <- as.numeric(gsub(",", ".", gsub("\\.", "", dat$value)))
+    dat <- data.frame(date = all.dates$date , pol = dat$value)
   }
   return(dat)
 }
